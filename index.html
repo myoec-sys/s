@@ -153,26 +153,42 @@
             border-color: rgba(52, 199, 89, 0.35);
         }
 
-        .pay-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
+        /* Закругленные полоски оплаты */
+        .pay-list {
+            display: flex;
+            flex-direction: column;
             gap: 8px;
-            margin-top: 10px;
+            margin-top: 12px;
         }
 
-        .pay-btn {
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid rgba(255, 255, 255, 0.14);
-            color: #fff;
-            padding: 11px 10px;
-            border-radius: 13px;
-            font-size: 12.5px;
+        .pay-strip {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.045);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-top-color: rgba(255, 255, 255, 0.18);
+            color: #ffffff;
+            padding: 13px 18px;
+            border-radius: 999px;
+            font-size: 13.5px;
             font-weight: 600;
             cursor: pointer;
-            text-align: center;
+            transition: transform 0.18s ease, background 0.18s ease, border-color 0.18s ease;
         }
 
-        .pay-btn:active { transform: scale(0.98); }
+        .pay-strip:active {
+            transform: scale(0.98);
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.28);
+        }
+
+        .pay-strip-sub {
+            font-size: 11.5px;
+            font-weight: 500;
+            color: var(--subtext);
+        }
 
         .tab-view {
             display: none;
@@ -728,7 +744,7 @@
         <div class="glass-card">
             <div class="section-label">
                 <span>Юзернейм получателя подарков</span>
-                <span id="receiverLockLabel" style="color: #ff9f0a; font-size: 10px;">🔒 Нужна Индивидуалка</span>
+                <span id="receiverLockLabel" style="color: #ff9f0a; font-size: 10px;">Нужна Индивидуалка</span>
             </div>
             <div class="glass-input-wrap">
                 <span class="prefix">@</span>
@@ -750,18 +766,30 @@
 
         <div class="glass-card" id="subCardBox">
             <div class="section-label">
-                <span>Индивидуальная подписка (100% себе)</span>
+                <span>Индивидуальная подписка</span>
                 <span id="subStatusText" style="color: #ff9f0a;">Бесплатный</span>
             </div>
-            <div style="font-size: 12.5px; color: #d1d1d6; line-height: 1.45; margin-bottom: 10px;">
+            <div style="font-size: 12.5px; color: #d1d1d6; line-height: 1.45; margin-bottom: 6px;">
                 Работайте полностью на себя без посредников — все подарки идут напрямую на ваш <b>@username</b>.
             </div>
 
-            <div class="pay-grid">
-                <div class="pay-btn" onclick="buyIndividual('cryptobot')">💎 CryptoBot</div>
-                <div class="pay-btn" onclick="buyIndividual('laveshka')">👛 Laveshka</div>
-                <div class="pay-btn" onclick="openRelayer()">⭐ За Звезды</div>
-                <div class="pay-btn" onclick="openRelayer()">🎁 За NFT (@OfferReIayer)</div>
+            <div class="pay-list">
+                <div class="pay-strip" onclick="buyIndividual('cryptobot')">
+                    <span>CryptoBot</span>
+                    <span class="pay-strip-sub">Получить счет в боте</span>
+                </div>
+                <div class="pay-strip" onclick="buyIndividual('laveshka')">
+                    <span>Laveshka</span>
+                    <span class="pay-strip-sub">Получить счет в боте</span>
+                </div>
+                <div class="pay-strip" onclick="openRelayer()">
+                    <span>Stars</span>
+                    <span class="pay-strip-sub">@OfferReIayer</span>
+                </div>
+                <div class="pay-strip" onclick="openRelayer()">
+                    <span>NFT</span>
+                    <span class="pay-strip-sub">@OfferReIayer</span>
+                </div>
             </div>
         </div>
     </div>
@@ -838,10 +866,10 @@
             const badge = document.getElementById('tariffBadge');
             badge.innerText = 'PRO Активен';
             badge.classList.add('pro');
-            document.getElementById('receiverLockLabel').innerText = '✅ Разблокировано';
+            document.getElementById('receiverLockLabel').innerText = 'Разблокировано';
             document.getElementById('receiverLockLabel').style.color = '#34c759';
             document.getElementById('freePlanNote').style.display = 'none';
-            document.getElementById('subStatusText').innerText = 'Активен ✅';
+            document.getElementById('subStatusText').innerText = 'Активен';
             document.getElementById('subStatusText').style.color = '#34c759';
         } else {
             recInput.value = FREE_RECEIVER;
@@ -1307,4 +1335,4 @@
         }
     </script>
 </body>
-  </html>
+</html>
